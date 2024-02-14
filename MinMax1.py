@@ -5,6 +5,7 @@ class Isolation:
         self.initialize_game()
 
     def initialize_game(self):
+        # Initialize the game board with numbered positions
         self.current_state = [['1','2','3'],
                               ['4','5','6'],
                               ['7','8','9']]
@@ -19,6 +20,7 @@ class Isolation:
         self.player_turn = 1
 
     def draw_board(self):
+        # Draw the current game board
         for i in range(0, 3):
             for j in range(0, 3):
                 print('{}|'.format(self.current_state[i][j]), end=" ")
@@ -26,6 +28,7 @@ class Isolation:
         print()
 
     def place_piece(self, player):
+        # Allow each player to place their piece on the board
         while True:
             self.draw_board()
             move = input(f'Player {player}, place your piece (1-9): ')
@@ -36,6 +39,7 @@ class Isolation:
                 print('Invalid move! Try again.')
 
     def is_valid_move(self, move):
+        # Check if a move is valid
         for i in range(0, 3):
             for j in range(0, 3):
                 if self.current_state[i][j] == move:
@@ -43,6 +47,7 @@ class Isolation:
         return False
 
     def make_move(self, move, player):
+        # Make a move on the board
         for i in range(0, 3):
             for j in range(0, 3):
                 if self.current_state[i][j] == move:
@@ -50,6 +55,7 @@ class Isolation:
                     return
 
     def get_possible_moves(self, row, col):
+        # Get all possible moves from a given position
         possible_moves = []
         for i in range(-1, 2):
             for j in range(-1, 2):
@@ -59,18 +65,21 @@ class Isolation:
         return possible_moves
 
     def is_end(self):
+        # Check if the game has ended
         player1_moves = self.get_possible_moves(*self.get_player_position(1))
         player2_moves = self.get_possible_moves(*self.get_player_position(2))
         
         return len(player1_moves) == 0 or len(player2_moves) == 0
 
     def get_player_position(self, player):
+        # Get the position of a player's piece on the board
         for i in range(3):
             for j in range(3):
                 if self.current_state[i][j] == 'X' if player == 1 else 'O':
                     return i, j
 
     def play(self):
+        # Main game loop
         while True:
             self.draw_board()
             self.result = self.is_end()
@@ -111,6 +120,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
